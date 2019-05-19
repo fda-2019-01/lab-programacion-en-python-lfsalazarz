@@ -15,3 +15,19 @@
 ## jjj,18
 ##
 ##
+from itertools import groupby
+from operator import itemgetter
+
+
+with open('data.csv', 'r') as f:
+    file = f.readlines()
+    
+    file = [line.replace('\n', '') for line in file]
+    file = [line.split('\t') for line in file]
+    
+    data_col5 = [y.split(':')[0] for row in file for y in row[4].split(',')]
+    keys = sorted(list(set(data_col5)))
+    tabla = [(key, data_col5.count(key)) for key in keys]
+
+    for k,c in tabla:
+        print(f'{k},{c}')
